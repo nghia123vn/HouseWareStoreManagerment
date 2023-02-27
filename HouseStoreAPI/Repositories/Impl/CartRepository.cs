@@ -1,4 +1,4 @@
-﻿namespace HouseStoreAPI.Repositories
+﻿namespace HouseStoreAPI.Repositories.Impl
 {
     public class CartRepository
     {
