@@ -17,12 +17,6 @@ namespace HouseStoreAPI.Controllers
             _context = context;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<List<Cart>>> GetCartsWithCartItems()
-        //{
-        //    var carts = await _context.Carts.Include(c => c.CartItems).ToListAsync();
-        //    return carts;
-        //}
         [HttpGet("{id}")]
         public async Task<ActionResult<Cart>> GetCart(int id)
         {
