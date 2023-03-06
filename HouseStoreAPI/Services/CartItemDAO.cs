@@ -27,14 +27,23 @@ namespace HouseStoreAPI.Services
 
 		public void UpdateProductQuantity(int cartId, int productId, int quantity)
 		{
-			var product = _context.CartItems.FirstOrDefault(p => p.ProductId == productId && p.CartId == cartId);
+			var cartItem = _context.CartItems.FirstOrDefault(ci => ci.ProductId == productId && ci.CartId == cartId);
+
+			if (cartItem == null)
+			{
+				throw new Exception("CartItem not found");
+			}
+
+			var product = _context.Products.FirstOrDefault(p => p.ProductId == productId);
 
 			if (product == null)
 			{
 				throw new Exception("Product not found");
 			}
 
-			product.Quantity = quantity;
+			cartItem.Quantity = quantity;
+			cartItem.TotalPriceItem = quantity * product.Price;
+
 			_context.SaveChanges();
 		}
 
