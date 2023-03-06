@@ -1,26 +1,27 @@
-﻿using HouseStoreAPI.Models;
+using HouseStoreAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Contracts;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HouseStoreAPI.Services
 {
-    public class ProductDAO
-    {
-        private readonly HousewareStoreManagermentContext _context;
+	public class ProductDAO
+	{
+		private readonly HousewareStoreManagermentContext _context;
 
-        public ProductDAO()
-        {
-            _context= new HousewareStoreManagermentContext();
-        }
+		public ProductDAO(HousewareStoreManagermentContext context)
+		{
+			_context = context;
+		}
 
-        public ProductDAO(HousewareStoreManagermentContext context)
-        {
-            _context = context;
-        }
-        public async Task<Product?> GetProductByIdAsync(int id)
-        {
-            return await _context.Products.FirstOrDefaultAsync(c => c.ProductId == id);
-        }
-    }
+		public List<Product> GetAllProducts()
+		{
+			return _context.Products.Include(p => p.Category).ToList();
+		}
+
+		public List<Product> GetProductsByCategory(int categoryId)
+		{
+			return _context.Products.Where(p => p.CategoryId == categoryId).ToList();
+		}
+	}
 }

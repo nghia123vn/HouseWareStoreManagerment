@@ -1,13 +1,11 @@
-﻿using HouseStoreAPI.Models;
-using System.Threading.Tasks;
+using HouseStoreAPI.Models;
+using System.Collections.Generic;
 
 namespace HouseStoreAPI.Repositories
 {
-    public interface IProductRepository
-    {
-        Task<Product?> GetProductByIdAsync(int productId);
-        Task<Product> AddProductAsync(Product product);
-        Task<Product?> UpdateProductAsync(Product product);
-        Task DeleteProductAsync(Product product);
-    }
+	public interface IProductRepository
+	{
+		List<Product> GetAllProducts();
+		public List<Product> GetProductsByCategory(int categoryId);
+	}
 }

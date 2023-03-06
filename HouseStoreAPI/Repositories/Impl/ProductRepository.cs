@@ -1,40 +1,26 @@
-﻿using HouseStoreAPI.Models;
+using HouseStoreAPI.Models;
 using HouseStoreAPI.Services;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace HouseStoreAPI.Repositories.Impl
 {
-    public class ProductRepository : IProductRepository
-    {
-        private readonly ProductDAO productDAO;
+	public class ProductRepository : IProductRepository
+	{
+		private readonly ProductDAO _productDAO;
 
-        public ProductRepository()
-        {
-            this.productDAO = new ProductDAO();
-        }
+		public ProductRepository(ProductDAO productDAO)
+		{
+			_productDAO = productDAO;
+		}
 
-        public ProductRepository(ProductDAO productDAO)
-        {
-            this.productDAO = productDAO;
-        }
-        public Task<Product> AddProductAsync(Product product)
-        {
-            throw new System.NotImplementedException();
-        }
+		public List<Product> GetAllProducts()
+		{
+			return _productDAO.GetAllProducts();
+		}
 
-        public Task DeleteProductAsync(Product product)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<Product> GetProductByIdAsync(int productId)
-        {
-            return await productDAO.GetProductByIdAsync(productId);
-        }
-
-        public Task<Product> UpdateProductAsync(Product product)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
+		public List<Product> GetProductsByCategory(int categoryId)
+		{
+			return _productDAO.GetProductsByCategory(categoryId);
+		}
+	}
 }
