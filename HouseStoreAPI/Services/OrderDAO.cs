@@ -1,5 +1,6 @@
 ﻿using HouseStoreAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,6 +25,19 @@ namespace HouseStoreAPI.Services
             return await _context.Orders
                 .Where(o => o.Status.Equals(status) && o.Customer.CustomerId == customerId).ToListAsync();
 
+        }
+
+        public void CancelOrder(int orderId)
+        {
+            var order = _context.Orders.FirstOrDefault(ci => ci.OrderId == orderId);
+
+            if (order == null)
+            {
+                throw new Exception("Order not found");
+            }
+
+            order.Status = "cancel";
+            _context.SaveChanges();
         }
     }
 }

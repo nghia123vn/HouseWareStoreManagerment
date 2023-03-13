@@ -7,5 +7,6 @@ namespace HouseStoreAPI.Repositories
 	{
 		List<Product> GetAllProducts();
 		public List<Product> GetProductsByCategory(int categoryId);
+		public Product GetProductById(int productId);
 	}
 }

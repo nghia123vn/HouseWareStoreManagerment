@@ -56,5 +56,45 @@ namespace HouseStoreAPI.Services
 				_context.SaveChanges();
 			}
 		}
-	}
+        public void DeleteAllItemInCart(int cartId)
+        {
+            var cartItems = _context.CartItems.Where(c => c.CartId == cartId);
+            if (cartItems != null)
+            {
+                _context.CartItems.RemoveRange(cartItems);
+                _context.SaveChanges();
+            }
+        }
+
+        public void AddCartItem(int accountId, int productId, int quantity)
+        {
+            var product = _context.Products.FirstOrDefault(p => p.ProductId == productId);
+			var account = _context.Customers.FirstOrDefault(c => c.CustomerId == accountId);
+
+            if (product == null)
+            {
+                throw new Exception("Product not found");
+            }
+			int newCartId = 0;
+			if (account == null)
+			{
+                var maxCartId = _context.CartItems.Max(c => c.CartId);
+                newCartId = maxCartId + 1;
+            } else
+			{
+				newCartId = _context.Carts.FirstOrDefault(ci => ci.Customer.CustomerId == accountId).CartId;
+            }
+
+            var newCartItem = new CartItem()
+            {
+                CartId = newCartId,
+                ProductId = productId,
+                Quantity = quantity,
+                TotalPriceItem = quantity * product.Price
+            };
+
+            _context.CartItems.Add(newCartItem);
+            _context.SaveChanges();
+        }
+    }
 }

@@ -23,5 +23,10 @@ namespace HouseStoreAPI.Services
 		{
 			return _context.Products.Where(p => p.CategoryId == categoryId).ToList();
 		}
-	}
+
+        public Product GetProductById(int productId)
+        {
+            return _context.Products.FirstOrDefault(p => p.ProductId == productId);
+        }
+    }
 }

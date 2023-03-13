@@ -28,7 +28,21 @@ namespace HouseStoreAPI.Controllers
 			}
 		}
 
-		[HttpDelete("{cartId}/{productId}")]
+        [HttpPost("/add-to-cart")]
+        public IActionResult AddProductToCart(int cartId, int productId, int quantity)
+        {
+            try
+            {
+                _itemRepository.AddProductToCart(cartId, productId, quantity);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{cartId}/{productId}")]
 		public IActionResult DeleteCartItem(int cartId, int productId)
 		{
 			try
@@ -42,5 +56,19 @@ namespace HouseStoreAPI.Controllers
 			}
 		}
 
-	}
+        [HttpDelete("{cartId}")]
+        public IActionResult DeleteAllCartItem(int cartId)
+        {
+            try
+            {
+                _itemRepository.DeleteAllCartItem(cartId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+    }
 }

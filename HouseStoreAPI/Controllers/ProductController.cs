@@ -30,5 +30,11 @@ namespace HouseStoreAPI.Controllers
 			var products = _productRepository.GetProductsByCategory(categoryId);
 			return products;
 		}
-	}
+        [HttpGet("product/{productId}")]
+        public async Task<ActionResult<Product>> GetProductsById(int productId)
+        {
+            var products = _productRepository.GetProductById(productId);
+            return products;
+        }
+    }
 }

@@ -38,5 +38,11 @@ namespace HouseStoreAPI.Repositories.Impl
 
 		public void UpdateProductQuantity(int cartId, int productId, int quantity)
 		=> _cartItemDAO.UpdateProductQuantity(cartId, productId, quantity);
-	}
+
+        public void DeleteAllCartItem(int cartId)
+        => _cartItemDAO.DeleteAllItemInCart(cartId);
+
+        public void AddProductToCart(int cartId, int productId, int quantity)
+        => _cartItemDAO.AddCartItem(cartId, productId, quantity);
+    }
 }

@@ -10,5 +10,6 @@ namespace HouseStoreAPI.Repositories
         Task<Order?> UpdateOrderAsync(Order order);
         Task DeleteOrderAsync(Order order);
         Task<List<Order>> GetOrderByIdAsync(int id, string status);
+        void CancelOrder(int orderId);
     }
 }

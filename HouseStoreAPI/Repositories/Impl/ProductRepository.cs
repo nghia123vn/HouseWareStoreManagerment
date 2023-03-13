@@ -18,7 +18,10 @@ namespace HouseStoreAPI.Repositories.Impl
 			return _productDAO.GetAllProducts();
 		}
 
-		public List<Product> GetProductsByCategory(int categoryId)
+        public Product GetProductById(int productId)
+        => _productDAO.GetProductById(productId);
+
+        public List<Product> GetProductsByCategory(int categoryId)
 		{
 			return _productDAO.GetProductsByCategory(categoryId);
 		}

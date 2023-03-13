@@ -24,15 +24,29 @@ namespace HouseStoreAPI.Controllers
         }
 
         [HttpPost("/orders")]
-        public async Task<IActionResult> GetOrder(int orderId, string status)
+        public async Task<IActionResult> GetOrder(int customerId, string status)
         {
-            var order = await orderRepository.GetOrderByIdAsync(orderId, status);
+            var order = await orderRepository.GetOrderByIdAsync(customerId, status);
 
             if  (order == null)
             {
                 return NotFound();
             }
             return Ok(order);
+        }
+
+        [HttpPost("/cancel-order")]
+        public IActionResult UpdateProductQuantity(int orderId)
+        {
+            try
+            {
+                orderRepository.CancelOrder(orderId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

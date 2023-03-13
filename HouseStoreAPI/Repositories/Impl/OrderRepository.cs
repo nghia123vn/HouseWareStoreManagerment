@@ -23,6 +23,9 @@ namespace HouseStoreAPI.Repositories.Impl
             throw new System.NotImplementedException();
         }
 
+        public void CancelOrder(int orderId)
+        => orderDAO.CancelOrder(orderId);
+
         public Task DeleteOrderAsync(Order order)
         {
             throw new System.NotImplementedException();
